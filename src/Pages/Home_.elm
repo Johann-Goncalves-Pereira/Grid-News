@@ -3,9 +3,10 @@ module Pages.Home_ exposing (Model, Msg, page)
 import Components.Svg as SVG exposing (Logo(..))
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
-import Html exposing (Html, a, div, h1, h2, h5, section, text)
-import Html.Attributes exposing (class, href, id, rel, tabindex, target)
+import Html exposing (Html, a, button, div, h1, h2, h5, header, input, label, p, section, span, text)
+import Html.Attributes as Attributes exposing (class, classList, href, id, name, rel, tabindex, target, type_)
 import Html.Attributes.Aria exposing (ariaLabel, ariaLabelledby)
+import Html.Events exposing (onCheck)
 import Layout exposing (initLayout)
 import Page
 import Request
@@ -28,12 +29,12 @@ page shared req =
 
 
 type alias Model =
-    {}
+    { toggler : Bool }
 
 
 init : Model
 init =
-    {}
+    { toggler = False }
 
 
 
@@ -41,14 +42,14 @@ init =
 
 
 type Msg
-    = ReplaceMe
+    = Toggler Bool
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        ReplaceMe ->
-            model
+        Toggler invert ->
+            { model | toggler = invert }
 
 
 
@@ -62,5 +63,53 @@ view model =
         Layout.viewLayout
             { initLayout
                 | route = Route.Home_
+                , content =
+                    { before =
+                        viewHeader model
+                            |> List.singleton
+                    , after = []
+                    }
+                , mainContent = viewMain model
             }
     }
+
+
+viewHeader : Model -> Html Msg
+viewHeader model =
+    header [ class "root__header " ]
+        [ p [ class "custom-title" ] [ text "2022" ]
+        , h1 [ class "title" ] [ text "March Fund" ]
+        , span [ class "mr-auto mb-auto font-serif font-semibold text-3xl" ]
+            [ text "About" ]
+        , p [ class "desc" ] [ text """We invest in people that we like,
+         trust, admire, and who have set out to build iconic 
+         organizations in the most fundamental categories.""" ]
+        , div
+            [ classList
+                [ ( "toggler", True )
+                , ( "toggler--check", model.toggler )
+                , ( "toggler--uncheck", not model.toggler )
+                ]
+            ]
+            [ input
+                [ class "toggler__input"
+                , type_ "checkbox"
+                , id <|
+                    if model.toggler then
+                        "march"
+
+                    else
+                        "merit"
+                , name "toggler"
+                , onCheck <| Toggler
+                ]
+                []
+            , label [ class "toggler__option", Attributes.for "march" ] [ text "March" ]
+            , label [ class "toggler__option", Attributes.for "merit" ] [ text "Merit" ]
+            ]
+        ]
+
+
+viewMain : Model -> List (Html Msg)
+viewMain _ =
+    []

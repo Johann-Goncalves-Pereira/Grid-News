@@ -3,11 +3,13 @@
 @use "../abstracts/" as *;
 
 body {
-	color: var(--clr-text-0);
-	background: var(--clr-surface-0);
+	color: var(--clr-brand-1);
+	background-color: var(--clr-brand-1);
+	font-family: var(--font-sans);
+	font-weight: var(--font-weight-5);
 }
 
-//! Main div with all the things
 .root {
-	font-family: var(--font-sans);
+	width: 100%;
+	min-height: 100vw;
 }

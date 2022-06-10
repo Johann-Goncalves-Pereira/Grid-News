@@ -13,46 +13,23 @@ import Regex
 
 type alias Model msg =
     { route : Route
+    , content : { before : List (Html msg), after : List (Html msg) }
     , mainContent : List (Html msg)
     , mainAttrs : List (Attribute msg)
-    }
-
-
-type alias Link =
-    { routeStatic : Route
-    , routeReceived : Route
-    , routeName : String
     }
 
 
 initLayout : Model msg
 initLayout =
     { route = Route.Home_
+    , content = { before = [], after = [] }
     , mainContent = []
     , mainAttrs = []
     }
 
 
-defaultLink : Link
-defaultLink =
-    { routeStatic = Route.Home_
-    , routeReceived = Route.Home_
-    , routeName = ""
-    }
-
-
 
 -- Structure
-
-
-isRoute : Route -> Route -> Bool
-isRoute route compare =
-    case ( route, compare ) of
-        ( Route.Home_, Route.Home_ ) ->
-            True
-
-        _ ->
-            False
 
 
 routeName : Route -> String
@@ -112,46 +89,8 @@ viewLayout model =
             , ( "root--" ++ classBuilder (routeName model.route), True )
             ]
         ]
-        [ viewHeader model
-        , main_ (mainClass :: model.mainAttrs) model.mainContent
-        ]
-    ]
-
-
-viewHeader : Model msg -> Html msg
-viewHeader model =
-    header [ class "root__header" ]
-        [ viewHeaderLinks model [ Route.Home_ ]
-            |> nav
-                [ class "root__header__nav"
-                ]
-        ]
-
-
-viewHeaderLinks : Model msg -> List Route -> List (Html msg)
-viewHeaderLinks model links =
-    List.map
-        (\staticRoute ->
-            viewLink
-                { defaultLink
-                    | routeName = routeName staticRoute
-                    , routeStatic = staticRoute
-                    , routeReceived = model.route
-                }
+        (model.content.before
+            ++ main_ (mainClass :: model.mainAttrs) model.mainContent
+            :: model.content.after
         )
-        links
-
-
-viewLink : Link -> Html msg
-viewLink model =
-    a
-        [ class "root__header__links"
-        , classList
-            [ ( "root__header__links--current-page"
-              , isRoute model.routeReceived model.routeStatic
-              )
-            ]
-        , href <| Route.toHref model.routeStatic
-        , tabindex 1
-        ]
-        [ text model.routeName ]
+    ]
