@@ -19,3 +19,8 @@ import Svg
         , use
         )
 import Svg.Attributes as Sa exposing (..)
+
+
+none : Html msg
+none =
+    svg [] []
