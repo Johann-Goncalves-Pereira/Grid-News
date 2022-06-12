@@ -152,16 +152,16 @@ $max-width: Min(100vw - 15rem, var(--size-xl));
 	height: fit-content;
 
 	border-radius: var(--rounded-sm);
-	padding: 0.95rem 1.625rem;
+	padding: var(--padding, 0.95rem 1.625rem);
 
 	color: var(--clr-brand-0);
-	background-color: var(--custom-title-bg, var(--clr-accent-0));
+	background-color: var(--bg, var(--clr-accent-0));
 
-	font-weight: var(--font-weight-6);
-	font-size: 0.75rem;
+	font-weight: var(--fw, var(--font-weight-6));
+	font-size: var(--fs, var(--font-size-0));
 
 	text-transform: uppercase;
-	letter-spacing: 0.125rem;
+	letter-spacing: var(--ls, 2px);
 
 	cursor: pointer;
 }
