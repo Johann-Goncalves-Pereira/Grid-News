@@ -7,6 +7,8 @@
 	grid-auto-rows: auto;
 }
 
+$max-width: Min(100vw - 15rem, var(--size-xl));
+
 .root__header {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -17,11 +19,11 @@
 	margin-top: 10rem;
 	padding: 2rem 10rem;
 
-	width: Min(100vw - 15rem, var(--size-xl));
+	width: $max-width;
 	height: min-content;
 	min-height: calc(100vh - var(--size-6));
 
-	background-color: var(--clr-brand-3);
+	background-color: var(--clr-brand-4);
 
 	.title,
 	.toggler,
