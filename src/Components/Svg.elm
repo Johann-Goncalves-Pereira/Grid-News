@@ -18,7 +18,7 @@ import Svg
         , svg
         , use
         )
-import Svg.Attributes as Sa exposing (..)
+import Svg.Attributes as SvgA exposing (..)
 
 
 none : Html msg

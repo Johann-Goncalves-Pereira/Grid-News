@@ -1,9 +1,13 @@
+@use "sass:math" as *;
+
 .root {
 	display: grid;
 	justify-content: center;
 	gap: var(--size-6);
 	grid-auto-rows: auto;
 }
+
+$max-width: Min(100vw - 15rem, var(--size-xl));
 
 .root__header {
 	display: grid;
@@ -15,11 +19,11 @@
 	margin-top: 10rem;
 	padding: 2rem 10rem;
 
-	width: Min(100vw - 15rem, var(--size-xl));
+	width: $max-width;
 	height: min-content;
 	min-height: calc(100vh - var(--size-6));
 
-	background-color: var(--clr-brand-3);
+	background-color: var(--clr-brand-4);
 
 	.title,
 	.toggler,
@@ -148,16 +152,83 @@
 	height: fit-content;
 
 	border-radius: var(--rounded-sm);
-	padding: 0.95rem 1.625rem;
+	padding: var(--padding, 0.95rem 1.625rem);
 
 	color: var(--clr-brand-0);
-	background-color: var(--custom-title-bg, var(--clr-accent-0));
+	background-color: var(--bg, var(--clr-accent-0));
 
-	font-weight: var(--font-weight-6);
-	font-size: 0.75rem;
+	font-weight: var(--fw, var(--font-weight-6));
+	font-size: var(--fs, var(--font-size-0));
 
 	text-transform: uppercase;
-	letter-spacing: 0.125rem;
+	letter-spacing: var(--ls, 2px);
 
 	cursor: pointer;
+}
+
+.custom-title--orange {
+	--bg: var(--clr-accent-1);
+}
+
+.main--home {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 1fr;
+	gap: 1.5rem;
+
+	width: $max-width;
+	margin-bottom: 10rem;
+
+	[class*="card--"] {
+		border-radius: var(--rounded-lg);
+		padding: 1rem;
+		background-color: var(--bg, var(--clr-brand-4));
+	}
+
+	.card {
+		&--base {
+			display: grid;
+			place-items: center;
+			grid-auto-rows: auto;
+			gap: 1rem;
+
+			grid-row: span var(--grid-row, 5);
+
+			&.row-ratio {
+				--grid-row: 7;
+				aspect-ratio: 3 / 4;
+			}
+
+			.title {
+				font-size: 1.875rem;
+				font-family: var(--font-serif);
+			}
+
+			.desc {
+				text-align: center;
+				font-size: 0.95rem;
+				line-height: 2ex;
+			}
+
+			.link {
+				$x: 1rem;
+				$ratio: div($x * 9, 16);
+				$padding: $ratio $x;
+
+				padding: $padding;
+				border-radius: var(--rounded-full);
+				border: 1px solid var(--clr-brand-1);
+
+				font-size: 0.875rem;
+				text-transform: uppercase;
+				letter-spacing: var(--font-letterspacing-1);
+			}
+		}
+	}
+
+	[class*="custom-title"] {
+		--padding: 0.5rem 1rem;
+		--fs: 0.65rem;
+		--fw: var(--font-weight-5);
+	}
 }
