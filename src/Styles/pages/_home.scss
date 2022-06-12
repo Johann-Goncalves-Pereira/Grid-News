@@ -1,3 +1,5 @@
+@use "sass:math" as *;
+
 .root {
 	display: grid;
 	justify-content: center;
