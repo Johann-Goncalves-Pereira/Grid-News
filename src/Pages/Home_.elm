@@ -1,9 +1,8 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
-import Components.Svg as SVG exposing (Logo(..))
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
-import Html exposing (Html, a, button, div, h1, h2, h5, header, input, label, p, section, span, text)
+import Html exposing (Html, a, button, div, h1, h2, h5, header, input, label, p, section, span, strong, text)
 import Html.Attributes as Attributes exposing (class, classList, href, id, name, rel, tabindex, target, type_)
 import Html.Attributes.Aria exposing (ariaLabel, ariaLabelledby)
 import Html.Events exposing (onCheck)
@@ -112,4 +111,20 @@ viewHeader model =
 
 viewMain : Model -> List (Html Msg)
 viewMain _ =
-    []
+    [ div [ class "card--base row-ratio" ] []
+    , div [ class "card--base" ]
+        [ p [ class "custom-title--orange" ] [ text "advisor" ]
+        , strong [ class "title" ] [ text "Martina Rissmann" ]
+        , p [ class "desc" ] [ text """Martina is Senior Partner and 
+        Managing Director at Boston Consulting Group and Advisor for 
+        MERIT and Corporate at July. Martina is based in Berlin, Germany.""" ]
+        , a [ class "link" ] [ text "linkedin" ]
+        ]
+    , div [ class "card--base" ] []
+    , div [ class "card--base" ] []
+    , div [ class "card--base row-ratio" ] []
+    , div [ class "card--base" ] []
+    , div [ class "card--base row-ratio" ] []
+    , div [ class "card--base" ] []
+    , div [ class "card--base" ] []
+    ]
