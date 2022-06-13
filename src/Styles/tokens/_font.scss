@@ -1,3 +1,15 @@
 :root {
-	--font-serif: "Noto Serif Display", serif;
+	--font-serif: "Noto Serif Display", ui-serif, serif;
+
+	$base: 0.5rem;
+	$multiply: 0.0625rem;
+	@for $size from 1 through 10 {
+		$font-size: $size * $multiply + $base;
+
+		@if $size < 10 {
+			--font-size-#{"0" + $size}: #{$font-size};
+		} @else {
+			--font-size-#{$size}: #{$font-size};
+		}
+	}
 }
