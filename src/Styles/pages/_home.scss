@@ -1,3 +1,4 @@
+@use "../abstracts/" as *;
 @use "sass:math" as *;
 
 .root {
@@ -16,11 +17,14 @@ $max-width: Min(100vw - 15rem, var(--size-xl));
 
 	border-radius: var(--rounded-lg);
 
-	padding: 2rem 10rem;
+	padding: 2rem var(--size-fluid-7);
 
 	width: $max-width;
 	height: min-content;
-	min-height: calc(100vh - var(--size-6));
+	min-height: Min(100vh - 10vw);
+	@include media(lg) {
+		min-height: Min(100vh - var(--size-6));
+	}
 
 	background-color: var(--clr-brand-4);
 
@@ -43,8 +47,12 @@ $max-width: Min(100vw - 15rem, var(--size-xl));
 	}
 
 	.desc {
-		grid-column: 2/-1;
+		grid-column: 1/-1;
 		font-size: var(--font-size-3);
+
+		@include media(lg) {
+			grid-column: 2/-1;
+		}
 	}
 
 	.toggler {
