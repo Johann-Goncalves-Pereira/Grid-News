@@ -16,7 +16,6 @@ $max-width: Min(100vw - 15rem, var(--size-xl));
 
 	border-radius: var(--rounded-lg);
 
-	margin-top: 10rem;
 	padding: 2rem 10rem;
 
 	width: $max-width;
@@ -177,7 +176,6 @@ $max-width: Min(100vw - 15rem, var(--size-xl));
 	gap: 1.5rem;
 
 	width: $max-width;
-	margin-bottom: 10rem;
 
 	[class*="card--"] {
 		border-radius: var(--rounded-lg);
