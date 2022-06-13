@@ -1,0 +1,149 @@
+@use "../abstracts" as *;
+
+.root__header {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+
+	padding: 2rem var(--size-fluid-6);
+
+	border-radius: var(--rounded-lg);
+
+	width: var(--root-max-width);
+	height: min-content;
+	min-height: Min(100vh - 10vw);
+
+	@include media(lg) {
+		min-height: Min(100vh - var(--size-6));
+		padding: 2rem var(--size-fluid-7);
+	}
+
+	background-color: var(--clr-brand-4);
+
+	.title,
+	.toggler,
+	.custom-title {
+		grid-column: 1 / -1;
+	}
+
+	.custom-title {
+		margin-inline: auto;
+		margin-top: auto;
+	}
+
+	.title {
+		margin: auto;
+		font-size: var(--size-fluid-5);
+		font-family: var(--font-serif);
+		text-align: center;
+
+		@include media(lg) {
+			font-size: var(--size-fluid-7);
+		}
+	}
+
+	.desc {
+		grid-column: 1/-1;
+		font-size: var(--font-size-3);
+
+		@include media(lg) {
+			grid-column: 2/-1;
+		}
+	}
+
+	.toggler {
+		$space: 0.75rem;
+		$inset: 3px;
+
+		position: relative;
+
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: 1fr;
+		gap: $space * 2;
+
+		border-radius: var(--rounded-full);
+
+		margin-inline: auto;
+		margin-bottom: auto;
+		padding-inline: calc(#{$inset * 2} + #{$space * 0.5});
+
+		background-color: var(--clr-brand-5);
+		isolation: isolate;
+		user-select: none;
+
+		&--check {
+			&::before {
+				animation-name: slide-stretch-left;
+				transform-origin: right;
+			}
+
+			.toggler__option:last-child {
+				color: var(--clr-brand-5);
+			}
+
+			@keyframes slide-stretch-left {
+				50% {
+					transform: translateX(calc(50% - #{$inset * 2})) scaleX(1.5);
+				}
+				100% {
+					transform: translateX(calc(100% - #{$inset * 2})) scaleX(1);
+				}
+			}
+		}
+
+		&--uncheck {
+			&::before {
+				animation-name: slide-stretch-right;
+				transform-origin: left;
+			}
+
+			.toggler__option:first-of-type {
+				color: var(--clr-brand-5);
+			}
+
+			@keyframes slide-stretch-right {
+				0% {
+					transform: translateX(calc(100% - #{$inset * 2})) scaleX(1);
+				}
+				50% {
+					transform: translateX(calc(50% - #{$inset * 2})) scaleX(1.5);
+				}
+				100% {
+					transform: translateX(0) scaleX(1);
+				}
+			}
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: $inset;
+
+			width: 50%;
+
+			border-radius: inherit;
+			background-color: var(--clr-brand-1);
+
+			z-index: -1;
+			animation-timing-function: ease-out;
+			animation-duration: 300ms;
+			animation-fill-mode: forwards;
+			// transition-delay: 50ms;
+		}
+
+		&__input {
+			position: absolute;
+			inset: -1px;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+		}
+
+		&__option {
+			text-align: center;
+			padding: $space calc(#{$space} + 2vw);
+			transition: color 300ms ease-out;
+		}
+	}
+}

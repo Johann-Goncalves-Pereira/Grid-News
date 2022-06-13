@@ -1,0 +1,30 @@
+[class*="custom-title"] {
+	display: inline-block;
+
+	width: fit-content;
+	height: fit-content;
+
+	border-radius: var(--rounded-sm);
+	padding: var(--padding, 0.95rem 1.625rem);
+
+	color: var(--clr-brand-0);
+	background-color: var(--bg, var(--clr-accent-0));
+
+	font-weight: var(--fw, var(--font-weight-6));
+	font-size: var(--fs, var(--font-size-0));
+
+	text-transform: uppercase;
+	letter-spacing: var(--ls, 2px);
+
+	cursor: pointer;
+}
+
+.custom-title {
+	&--orange {
+		--bg: var(--clr-accent-1);
+	}
+
+	&--purple {
+		--bg: var(--clr-accent-2);
+	}
+}
