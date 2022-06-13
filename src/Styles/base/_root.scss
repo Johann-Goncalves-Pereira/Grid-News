@@ -1,6 +1,4 @@
-//? Here is I use to make the base elements of the page;
-
-@use "../abstracts/" as *;
+@use "../abstracts" as *;
 
 body {
 	color: var(--clr-brand-1);
@@ -10,6 +8,15 @@ body {
 }
 
 .root {
+	display: grid;
+	justify-content: center;
+	grid-auto-rows: auto;
+	gap: var(--size-6);
+
+	padding-block: Min(11vh + 1rem, 15rem);
+
 	width: 100%;
 	min-height: 100vw;
+
+	--root-max-width: clamp(2rem, 100vw - 20vw, var(--size-xl));
 }

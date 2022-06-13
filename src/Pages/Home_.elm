@@ -2,8 +2,8 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
-import Html exposing (Html, a, button, div, h1, h2, h5, header, input, label, p, section, span, strong, text)
-import Html.Attributes as Attributes exposing (class, classList, href, id, name, rel, tabindex, target, type_)
+import Html exposing (Html, a, button, div, h1, h2, h5, header, img, input, label, p, section, span, strong, text)
+import Html.Attributes as Attributes exposing (alt, class, classList, href, id, name, rel, src, tabindex, target, type_)
 import Html.Attributes.Aria exposing (ariaLabel, ariaLabelledby)
 import Html.Events exposing (onCheck)
 import Layout exposing (initLayout)
@@ -109,22 +109,121 @@ viewHeader model =
         ]
 
 
+type CustomTitle
+    = Partner
+    | Advisor
+    | PortfolioFounder
+    | News
+
+
+viewCustomTitle : CustomTitle -> Html Msg
+viewCustomTitle ct =
+    let
+        ctTo =
+            case ct of
+                News ->
+                    ( "news", "" )
+
+                Partner ->
+                    ( "partner", "purple" )
+
+                Advisor ->
+                    ( "advisor", "orange" )
+
+                PortfolioFounder ->
+                    ( "portfolio founder", "" )
+    in
+    p
+        [ class <| ("custom-title--" ++ Tuple.second ctTo)
+        ]
+        [ text <| Tuple.first ctTo ]
+
+
+type alias BaseCard =
+    { customTitle : CustomTitle
+    , title : String
+    , desc : String
+    , link : String
+    }
+
+
+baseCard : BaseCard
+baseCard =
+    { customTitle = News
+    , title = ""
+    , desc = ""
+    , link = "linkedin"
+    }
+
+
+viewBaseCard : BaseCard -> Html Msg
+viewBaseCard card =
+    let
+        ctTo =
+            case card.customTitle of
+                News ->
+                    "bg-brand-4"
+
+                Partner ->
+                    "bg-brand-4"
+
+                Advisor ->
+                    "bg-brand-3"
+
+                PortfolioFounder ->
+                    "bg-brand-2 text-brand-4"
+    in
+    div [ class <| "card--base " ++ ctTo ]
+        [ viewCustomTitle card.customTitle
+        , strong [ class "title" ] [ text card.title ]
+        , p [ class "desc" ] [ text card.desc ]
+        , a [ class "link" ] [ text card.link ]
+        ]
+
+
 viewMain : Model -> List (Html Msg)
 viewMain _ =
-    [ div [ class "card--base row-ratio" ] []
-    , div [ class "card--base" ]
-        [ p [ class "custom-title--orange" ] [ text "advisor" ]
-        , strong [ class "title" ] [ text "Martina Rissmann" ]
-        , p [ class "desc" ] [ text """Martina is Senior Partner and 
-        Managing Director at Boston Consulting Group and Advisor for 
-        MERIT and Corporate at July. Martina is based in Berlin, Germany.""" ]
-        , a [ class "link" ] [ text "linkedin" ]
+    [ div [ class "card--purple row-ratio " ]
+        [ img [ class "img", src "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
+        , span [ class "material-symbols-rounded" ] [ text "bar_chart" ]
+        , strong [ class "title" ] [ text "Welcome To\n The Jungle" ]
+        , p [ class "text-sm" ] [ text "July Team & Advisor Playlist" ]
         ]
-    , div [ class "card--base" ] []
-    , div [ class "card--base" ] []
-    , div [ class "card--base row-ratio" ] []
-    , div [ class "card--base" ] []
-    , div [ class "card--base row-ratio" ] []
-    , div [ class "card--base" ] []
-    , div [ class "card--base" ] []
+    , viewBaseCard
+        { baseCard
+            | customTitle = Advisor
+            , title = "Roman Rosslenbroich"
+            , desc = """Roman is CEO & Co-Founder at Aquila Capital 
+            and a Founding Limited Partner at July Fund. Roman is 
+            based in Hamburg, Germany."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = Partner
+            , title = "Wayne Mackey"
+            , desc = """Wayne is CEO & Co-Founder at Statespace 
+            and Advisor for Gaming and Neuroscience at July. 
+            Wayne is based in Youngstown, Ohio."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = Partner
+            , title = "Florian Schindler"
+            , desc = """Florian is a General Partner at July 
+            Fund. Florian is based in Berlin, Germany."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = PortfolioFounder
+            , title = "Florian Schindler"
+            , desc = """Florian is a General Partner at July 
+            Fund. Florian is based in Berlin, Germany."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = PortfolioFounder
+            , title = "Florian Schindler"
+            , desc = """Florian is a General Partner at July 
+            Fund. Florian is based in Berlin, Germany."""
+        }
     ]
