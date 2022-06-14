@@ -2,10 +2,11 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route
-import Html exposing (Html, a, button, div, h1, h2, h5, header, img, input, label, p, section, span, strong, text)
+import Html exposing (Attribute, Html, a, button, div, h1, h2, h5, header, img, input, label, p, section, span, strong, text)
 import Html.Attributes as Attributes exposing (alt, class, classList, href, id, name, rel, src, tabindex, target, type_)
 import Html.Attributes.Aria exposing (ariaLabel, ariaLabelledby)
-import Html.Events exposing (onCheck)
+import Html.Events exposing (on, onCheck)
+import Json.Decode as JsonDecode
 import Layout exposing (initLayout)
 import Page
 import Request
@@ -15,7 +16,7 @@ import View exposing (View)
 
 
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
-page shared req =
+page _ _ =
     Page.sandbox
         { init = init
         , update = update
@@ -49,6 +50,11 @@ update msg model =
     case msg of
         Toggler invert ->
             { model | toggler = invert }
+
+
+onScroll : msg -> Attribute msg
+onScroll msg =
+    on "scroll" (JsonDecode.succeed msg)
 
 
 
@@ -205,6 +211,32 @@ viewMain _ =
             and Advisor for Gaming and Neuroscience at July. 
             Wayne is based in Youngstown, Ohio."""
         }
+    , div [ class "card--purple row-ratio " ]
+        [ img [ class "img", src "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
+        , span [ class "material-symbols-rounded" ] [ text "bar_chart" ]
+        , strong [ class "title" ] [ text "Welcome To\n The Jungle" ]
+        , p [ class "text-sm" ] [ text "July Team & Advisor Playlist" ]
+        ]
+    , viewBaseCard
+        { baseCard
+            | customTitle = Partner
+            , title = "Florian Schindler"
+            , desc = """Florian is a General Partner at July 
+            Fund. Florian is based in Berlin, Germany."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = PortfolioFounder
+            , title = "Florian Schindler"
+            , desc = """Florian is a General Partner at July 
+            Fund. Florian is based in Berlin, Germany."""
+        }
+    , div [ class "card--purple row-ratio " ]
+        [ img [ class "img", src "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
+        , span [ class "material-symbols-rounded" ] [ text "bar_chart" ]
+        , strong [ class "title" ] [ text "Welcome To\n The Jungle" ]
+        , p [ class "text-sm" ] [ text "July Team & Advisor Playlist" ]
+        ]
     , viewBaseCard
         { baseCard
             | customTitle = Partner
@@ -221,9 +253,25 @@ viewMain _ =
         }
     , viewBaseCard
         { baseCard
-            | customTitle = PortfolioFounder
+            | customTitle = Partner
             , title = "Florian Schindler"
             , desc = """Florian is a General Partner at July 
             Fund. Florian is based in Berlin, Germany."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = Partner
+            , title = "Wayne Mackey"
+            , desc = """Wayne is CEO & Co-Founder at Statespace 
+            and Advisor for Gaming and Neuroscience at July. 
+            Wayne is based in Youngstown, Ohio."""
+        }
+    , viewBaseCard
+        { baseCard
+            | customTitle = Partner
+            , title = "Wayne Mackey"
+            , desc = """Wayne is CEO & Co-Founder at Statespace 
+            and Advisor for Gaming and Neuroscience at July. 
+            Wayne is based in Youngstown, Ohio."""
         }
     ]

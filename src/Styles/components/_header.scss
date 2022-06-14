@@ -1,5 +1,3 @@
-@use "../abstracts" as *;
-
 .root__header {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -13,12 +11,12 @@
 	height: min-content;
 	min-height: Min(100vh - 10vw);
 
-	@include media(lg) {
+	background-color: var(--clr-brand-4);
+
+	@media (--lg-n-above) {
 		min-height: Min(100vh - var(--size-6));
 		padding: 2rem var(--size-fluid-7);
 	}
-
-	background-color: var(--clr-brand-4);
 
 	.title,
 	.toggler,
@@ -37,7 +35,7 @@
 		font-family: var(--font-serif);
 		text-align: center;
 
-		@include media(lg) {
+		@media (--lg-n-above) {
 			font-size: var(--size-fluid-7);
 		}
 	}
@@ -46,7 +44,7 @@
 		grid-column: 1/-1;
 		font-size: var(--font-size-3);
 
-		@include media(lg) {
+		@media (--lg-n-above) {
 			grid-column: 2/-1;
 		}
 	}
