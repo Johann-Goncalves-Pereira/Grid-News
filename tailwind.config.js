@@ -20,6 +20,7 @@ module.exports = {
       "unique-0": "hsla(var(--clr-unique-0-hsl) / <alpha-value>)",
       "unique-1": "hsla(var(--clr-unique-1-hsl) / <alpha-value>)",
       "unique-2": "hsla(var(--clr-unique-2-hsl) / <alpha-value>)",
+      "unique-3": "hsla(var(--clr-unique-2-hsl) / <alpha-value>)",
     },
     borderRadius: {
       "rounded-sm": "var(--rounded-sm)",

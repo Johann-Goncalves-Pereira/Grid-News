@@ -13,6 +13,7 @@ import Request
 import Shared
 import Svg exposing (desc)
 import View exposing (View)
+import VitePluginHelper exposing (asset)
 
 
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
@@ -82,7 +83,7 @@ view model =
 viewHeader : Model -> Html Msg
 viewHeader model =
     header [ class "root__header " ]
-        [ p [ class "custom-title" ] [ text "2022" ]
+        [ viewCustomTitle <| Custom ( "2022", "bg-accent-0" )
         , h1 [ class "title" ] [ text "March Fund" ]
         , span [ class "mr-auto mb-auto font-serif font-semibold text-3xl" ]
             [ text "About" ]
@@ -120,6 +121,7 @@ type CustomTitle
     | Advisor
     | PortfolioFounder
     | News
+    | Custom ( String, String )
 
 
 viewCustomTitle : CustomTitle -> Html Msg
@@ -131,16 +133,19 @@ viewCustomTitle ct =
                     ( "news", "" )
 
                 Partner ->
-                    ( "partner", "purple" )
+                    ( "partner", "bg-accent-2" )
 
                 Advisor ->
-                    ( "advisor", "orange" )
+                    ( "advisor", "bg-accent-1" )
 
                 PortfolioFounder ->
-                    ( "portfolio founder", "" )
+                    ( "portfolio founder", "bg-accent-0 text-brand-1" )
+
+                Custom ( title, color ) ->
+                    ( title, color )
     in
     p
-        [ class <| ("custom-title--" ++ Tuple.second ctTo)
+        [ class <| ("custom-title " ++ Tuple.second ctTo)
         ]
         [ text <| Tuple.first ctTo ]
 
@@ -178,6 +183,9 @@ viewBaseCard card =
 
                 PortfolioFounder ->
                     "bg-brand-2 text-brand-4"
+
+                Custom ( _, color ) ->
+                    color
     in
     div [ class <| "card--base " ++ ctTo ]
         [ viewCustomTitle card.customTitle
@@ -190,7 +198,7 @@ viewBaseCard card =
 viewMain : Model -> List (Html Msg)
 viewMain _ =
     [ div [ class "card--purple row-ratio " ]
-        [ img [ class "img", src "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
+        [ img [ class "img", src <| asset "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
         , span [ class "material-symbols-rounded" ] [ text "bar_chart" ]
         , strong [ class "title" ] [ text "Welcome To\n The Jungle" ]
         , p [ class "text-sm" ] [ text "July Team & Advisor Playlist" ]
@@ -211,11 +219,14 @@ viewMain _ =
             and Advisor for Gaming and Neuroscience at July. 
             Wayne is based in Youngstown, Ohio."""
         }
-    , div [ class "card--purple row-ratio " ]
-        [ img [ class "img", src "/assets/layered-steps-haikei.svg", alt "Svg Animation" ] []
-        , span [ class "material-symbols-rounded" ] [ text "bar_chart" ]
-        , strong [ class "title" ] [ text "Welcome To\n The Jungle" ]
-        , p [ class "text-sm" ] [ text "July Team & Advisor Playlist" ]
+    , div [ class "card--core-theme row-ratio" ]
+        [ div [ class "animation" ] [ span [] [] ]
+        , viewCustomTitle <| Custom ( "CORE THEME", "bg-unique-1 text-accent-0" )
+        , strong [ class "title" ] [ text "Infrastructure Tech" ]
+        , p [ class "text-sm text-center px-4" ] [ text """We are convinced that there are a few 
+         areas in which fundamental and indicatory infrastructure will be newly 
+         created in the coming years. We primarily focus on five areas in this
+         context: Web3, Defense, Climate Action, Space, and Manufacturing.""" ]
         ]
     , viewBaseCard
         { baseCard
